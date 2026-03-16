@@ -31,6 +31,7 @@ if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
 if "attempts" not in st.session_state:
+    #FIX: attempts started at 1 instead of 0
     st.session_state.attempts = 0
 
 if "score" not in st.session_state:
@@ -71,6 +72,7 @@ with col3:
 
 if new_game:
     st.session_state.attempts = 0
+    #FIX: new game reset changed from 0,100 to low,high
     st.session_state.secret = random.randint(low,high)
     st.success("New game started.")
     st.rerun()
@@ -92,7 +94,7 @@ if submit:
         st.error(err)
     else:
         st.session_state.history.append(guess_int)
-
+        #FIX: Secret was cast to string on even attempts
         secret = st.session_state.secret
 
         outcome, message = check_guess(guess_int, secret)
